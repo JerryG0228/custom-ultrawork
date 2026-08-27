@@ -1,5 +1,6 @@
 {
-  "hooks": {
+  "_comment": "UserPromptSubmit is DELIBERATELY UNWIRED. The upstream omo hook fires on any prompt matching /(?:ultrawork|ulw(?!-(?:plan|research)))/i, which also fires on incidental mentions — including a conversation *about* ulw. This plugin is explicit-invocation-only: run the skill with /ulw:ulw. The handler and its 57 tests are kept intact; to restore auto-trigger, move the block below from _disabled into hooks.",
+  "_disabled": {
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -11,7 +12,9 @@
           }
         ]
       }
-    ],
+    ]
+  },
+  "hooks": {
     "Stop": [
       {
         "hooks": [

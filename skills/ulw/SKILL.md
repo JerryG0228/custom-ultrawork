@@ -1,6 +1,6 @@
 ---
 name: ulw
-description: Binding ultrawork mode directive for Claude Code. Trigger on "ultrawork", "ulw", "울트라워크", "ultrawork mode", "ulw mode", or when the ulw UserPromptSubmit hook injects the ultrawork bootstrap pointer. Maximum-precision, evidence-driven execution — tier triage, a registered binding goal, a durable notepad, TodoWrite state tracking, and a PIN → RED → GREEN → SURFACE → CLEAN loop where nothing is claimed done without captured evidence. Read the whole file and follow every rule in it for the rest of the task.
+description: EXPLICIT INVOCATION ONLY — run this skill when, and only when, the user invokes it by name (/ulw:ulw) or asks in their own words to turn ultrawork mode on for the task. Do NOT invoke it because a prompt happens to contain the words "ulw", "ultrawork", or "울트라워크"; a conversation *about* this plugin is not a request to run it. Once invoked it is a binding execution directive for the rest of the task — tier triage, a registered goal, a durable notepad, and a PIN → RED → GREEN → SURFACE → CLEAN loop where nothing is claimed done without captured evidence. Read the whole file and follow every rule in it.
 metadata:
   short-description: Binding ultrawork mode directive (Claude Code port of omo/Codex ultrawork)
 ---

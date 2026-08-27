@@ -18,10 +18,28 @@ PIN → RED → GREEN → SURFACE → CLEAN 루프 → 3층 stop rules.
 | `test/` | `cd ~/.claude/skills/ulw && node --test 'test/*.test.mjs'`. **주의**: node v22 에서 `node --test <디렉토리>` 형태는 디렉토리를 모듈로 해석해 죽는다 |
 | `LICENSES/` | 상류 라이선스 전문 2본 (아래 라이선스 절 참조) |
 
-## 사용
+## 사용 — 명시적 호출 전용
 
-프롬프트에 `ultrawork` 또는 `ulw` 를 넣으면 훅이 디렉티브를 주입한다.
-활성화되면 그 턴의 **첫 줄이 정확히** `ULTRAWORK MODE ENABLED!` 여야 한다.
+`/ulw:ulw` 로 직접 호출한다. 활성화되면 그 턴의 **첫 줄이 정확히**
+`ULTRAWORK MODE ENABLED!` 여야 한다.
+
+**자동 트리거는 꺼져 있다.** 원본 omo 훅은
+`/(?:ultrawork|ulw(?!-(?:plan|research)))/i` 에 매치되는 모든 프롬프트에서
+발화하는데, 그러면 이 플러그인을 *논의하는* 대화에서도 켜진다. 그래서 두 군데를
+막았다:
+
+1. `hooks/hooks.json` — `UserPromptSubmit` 을 `hooks` 밖 `_disabled` 로 파킹.
+   핸들러와 테스트 57본은 그대로 살아있다.
+2. `skills/ulw/SKILL.md` frontmatter — `description` 에서 트리거 문구를 빼고
+   `EXPLICIT INVOCATION ONLY` 로 못박음. 안 그러면 Claude 가 설명만 보고
+   스킬을 자율 호출한다.
+
+되살리려면 `_disabled` 의 `UserPromptSubmit` 블록을 `hooks` 안으로 옮기고
+description 의 트리거 문구를 되돌리면 된다. (배선을 검사하는 테스트 2본이
+`test/integration.test.mjs` 에 있으니 같이 뒤집어야 한다.)
+
+`Stop` 훅은 계속 켜둔다 — `goals.json` 이 없으면 아무것도 안 하므로,
+ulw 를 안 쓰는 세션에서는 존재하지 않는 것과 같다.
 
 ## 원본과의 관계
 

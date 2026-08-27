@@ -211,15 +211,29 @@ describe("Stop hook", () => {
 });
 
 describe("plugin wiring", () => {
-	test("hooks.json keeps UserPromptSubmit and adds Stop", () => {
-		const hooks = JSON.parse(readFileSync(join(PLUGIN_ROOT, "hooks", "hooks.json"), "utf8")).hooks;
-		assert.deepEqual(Object.keys(hooks).sort(), ["Stop", "UserPromptSubmit"]);
-		assert.match(hooks.UserPromptSubmit[0].hooks[0].command, /on-user-prompt-submit\.mjs$/);
-		assert.match(hooks.Stop[0].hooks[0].command, /on-stop\.mjs$/);
-		for (const entries of Object.values(hooks)) {
-			assert.equal(entries[0].hooks[0].type, "command");
-			assert.match(entries[0].hooks[0].command, /^node \$\{CLAUDE_PLUGIN_ROOT\}\//);
+	// Explicit-invocation-only contract: Stop stays wired (it is inert until a goal exists),
+	// UserPromptSubmit stays OUT of `hooks` so no prompt auto-triggers ultrawork. The handler
+	// is not deleted — it is parked under `_disabled` so restoring it is a key rename.
+	test("hooks.json wires Stop only; UserPromptSubmit is parked, not deleted", () => {
+		const file = JSON.parse(readFileSync(join(PLUGIN_ROOT, "hooks", "hooks.json"), "utf8"));
+		assert.deepEqual(Object.keys(file.hooks), ["Stop"]);
+		assert.match(file.hooks.Stop[0].hooks[0].command, /on-stop\.mjs$/);
+
+		assert.deepEqual(Object.keys(file._disabled), ["UserPromptSubmit"]);
+		assert.match(file._disabled.UserPromptSubmit[0].hooks[0].command, /on-user-prompt-submit\.mjs$/);
+
+		for (const group of [file.hooks, file._disabled]) {
+			for (const entries of Object.values(group)) {
+				assert.equal(entries[0].hooks[0].type, "command");
+				assert.match(entries[0].hooks[0].command, /^node \$\{CLAUDE_PLUGIN_ROOT\}\//);
+			}
 		}
+	});
+
+	test("the skill description does not advertise word-match auto-triggering", () => {
+		const front = readFileSync(join(PLUGIN_ROOT, "skills", "ulw", "SKILL.md"), "utf8").split(/^---$/m)[1];
+		assert.match(front, /EXPLICIT INVOCATION ONLY/);
+		assert.doesNotMatch(front, /Trigger on/i);
 	});
 
 	test("plugin.json registers the MCP server and no placeholder .mcp.json survives", () => {

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "ulw",
+  "version": "0.1.0",
+  "description": "ultrawork (Codex Light edition) reproduced for Claude Code",
+  "author": { "name": "zoo", "email": "anfdnfl@khu.ac.kr" },
+  "skills": ["./skills/ulw"],
+  "mcpServers": {
+    "ulw-goal": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/ulw-goal-server.mjs"]
+    }
+  }
+}

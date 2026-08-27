@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks-handlers/on-user-prompt-submit.mjs",
+            "timeout": 5,
+            "statusMessage": "Checking Ultrawork Trigger"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks-handlers/on-stop.mjs",
+            "timeout": 5,
+            "statusMessage": "Checking Ultrawork Goals"
+          }
+        ]
+      }
+    ]
+  }
+}

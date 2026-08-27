@@ -1,5 +1,12 @@
 # ulw — ultrawork for Claude Code
 
+> **무료·비상업 한정 (SUL-1.0) · 수정된 파생물**
+> 이 저장소는 `oh-my-opencode` (omo) 의 ultrawork 를 **수정한**
+> 파생물이다 (`skills/ulw/SKILL.md` 를 Codex 표면 → Claude Code 표면으로 번역).
+> 상류와 같은 **Sustainable Use License 1.0** 을 승계한다 — 무료·비상업 목적으로만
+> 재배포할 수 있고, 판매하거나 상업적으로 제공할 수 없다. 전문은 루트 [`LICENSE`](./LICENSE),
+> 파트별 내역은 [아래 라이선스 절](#라이선스-licensing-notice) 참조.
+
 `ulw` 는 omo/Codex 의 **ultrawork** 디렉티브를 Claude Code 로 이식한 플러그인이다.
 증거 없이는 "완료" 라고 말하지 않는 실행 모드를 강제한다: tier triage →
 바인딩 goal → 영속 노트패드 → `TodoWrite` 상태 추적 →

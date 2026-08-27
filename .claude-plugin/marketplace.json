@@ -1,0 +1,16 @@
+{
+  "name": "custom-ultrawork",
+  "owner": {
+    "name": "zoo",
+    "email": "anfdnfl@khu.ac.kr"
+  },
+  "description": "ulw — Codex ultrawork 의 Claude Code 이식본 (SUL-1.0, 무료·비상업 한정)",
+  "plugins": [
+    {
+      "name": "ulw",
+      "source": "./",
+      "version": "0.1.0",
+      "description": "테스트로 실패를 먼저 확인하고 실제 동작까지 증거로 남겨야 \"완료\"라고 말할 수 있게 강제하는 작업 모드. 목표 등록·RED→GREEN·실제 화면 QA·정리까지 한 루프로 묶는다. Codex 의 ultrawork 를 Claude Code 로 이식했고 /ulw:ulw 로 직접 호출한다."
+    }
+  ]
+}
